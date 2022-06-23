@@ -1,0 +1,20 @@
+.mainbox {
+    display:flex;
+    flex-direction: column;
+}
+
+
+
+.thecalculator {
+    display:flex;
+    border: 2px solid blue;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button,
+input[type=number] {
+  -webkit-appearance: none;
+  margin: 0;
+  -moz-appearance: textfield;
+}
+

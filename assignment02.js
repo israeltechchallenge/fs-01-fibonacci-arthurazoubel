@@ -1,55 +1,60 @@
-
-function fibonaccilist() {
-    var a,b,result;
-    a=0;
-    b=1;
-    result=b;
-    fibonaccinumbers = [];
-    for (i=1;i<=50;i++) {
-        result = a + b;
-        a = b;
-        b = result
-        fibonaccinumbers.push(result)
-    }
-        fibonaccinumbers.unshift(0,1)
-    }
-fibonaccilist()
-
 const button = document.getElementById("btn");
-button.addEventListener("click", callArray)
+const spinner = document.querySelector(".spinner")
+const divList = document.getElementById("resultslist")
+button.addEventListener("click", getFibonacciResult)
+button.addEventListener("click", clearList)
+//button.addEventListener("click", getAllResults)
+//window.addEventListener('load', getAllResults)
 
-function callArray() {
-    //inputValue.
-    var inputValue = document.getElementById("input").value;
-    i = inputValue;
-    if (i > 50) {
-        alert("ERROR 404")
+function getFibonacciResult() {
+
+    let inputValue = document.getElementById("input").value;
+    let URL = `http://localhost:5050/fibonacci/${inputValue}`
+    let changeText = document.getElementById("y");
+    spinner.classList.remove("d-none")
+
+    if (inputValue > 50) {
+        changeText.innerHTML = "The number can't be greater than 50!"
+        spinner.classList.add("d-none")
     } else {
-    fibonacciNumber = fibonaccinumbers[i];
-    const changeText = document.getElementById("y");
-    changeText.innerHTML = `${fibonacciNumber}`
+        fetch(URL).then((response) => {
+            if (response.ok === false) {
+                return response.text().then((err) => {
+                    throw new Error(err)
+                })
+            }
+            return response.json()
+        }).then((data) => {
+            changeText.innerText = data.result
+            spinner.classList.add("d-none")
+            getAllResults()
+        }).catch((error) => {
+            console.log(error)
+            changeText.innerText = error
+            spinner.classList.add("d-none")
+        })
     }
 }
 
-/*
-const localServer = `http://localhost:5050/fibonacci/:number`;
-fetch(localServer)
-  .then(function (response) {
-    return response.json();
-  })
-  .then (function (data) {
-
-  })
-*/
-
-/*
-function spinnerShow(){
-    document.getElementById('y').innerHTML = '';
-    document.getElementById('hideSpin').style.visibility = 'visible';
-    setTimeout(() => {
-        callArray;
-    }, 500);
+function clearList() {
+    divList.innerText = ''
 }
-*/
 
-// SORRY, I'M STILL TRYING TO FIGURE OUT HOW TO SOLVE MILESTONES 4 AND 5
+function getAllResults() {
+    const URL = 'http://localhost:5050/getFibonacciResults';
+    //let inputValue = document.getElementById("input").value;
+    fetch(URL)
+    .then((response) => response.json())
+    .then(data => {
+        let arrayResults = data.results;
+        
+        //for (let i = 0; i < arrayResults.length; i++) {
+            const date = new Date(arrayResults[0].createdDate)
+            const htmlElement = `The Fibonacci of ${arrayResults[0].number} is ${arrayResults[0].result}. Calculated at: ${date}`;
+            divList.innerHTML += htmlElement; 
+        //}
+    })
+} 
+
+
+// STILL WORKING ON THAT!

@@ -3,11 +3,14 @@
     flex-direction: column;
 }
 
+.resultsbox {
+  border:0px solid green;
+  height:300px;
+}
 
-
-.thecalculator {
-    display:flex;
-    border: 2px solid blue;
+.resultslist {
+  border:0px solid red;
+  width:100%
 }
 
 input::-webkit-outer-spin-button,

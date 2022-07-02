@@ -2,14 +2,14 @@
     display:flex;
     flex-direction: column;
 }
-
-
-
-.thecalculator {
-    display:flex;
-    border: 2px solid blue;
+.resultsbox {
+  border:0px solid green;
+  height:300px;
 }
-
+.resultslist {
+  border:0px solid red;
+  width:100%
+}
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button,
 input[type=number] {
@@ -17,4 +17,16 @@ input[type=number] {
   margin: 0;
   -moz-appearance: textfield;
 }
-
+.dropdown-toggle:hover {
+  cursor:not-allowed;
+}
+li {
+  list-style-type: none;
+  border-bottom: 1px solid black;
+  margin:0 15rem 2rem 0;
+  padding-bottom:1rem;
+  font-size: 1.6rem;
+}
+b {
+  font-weight: bold;
+}
